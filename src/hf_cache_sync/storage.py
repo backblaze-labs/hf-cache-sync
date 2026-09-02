@@ -80,8 +80,8 @@ def _is_backblaze_endpoint(endpoint: str) -> bool:
     """Check if the endpoint is a Backblaze B2 S3-compatible endpoint."""
     if not endpoint:
         return False
-    host = urlparse(endpoint).hostname or ""
-    return "backblazeb2.com" in host
+    host = (urlparse(endpoint).hostname or "").lower().rstrip(".")
+    return host == "backblazeb2.com" or host.endswith(".backblazeb2.com")
 
 
 def get_user_agent(endpoint: str) -> str:
