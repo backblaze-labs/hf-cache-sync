@@ -26,8 +26,12 @@ from hf_cache_sync.storage import (
 def test_is_backblaze_endpoint():
     assert _is_backblaze_endpoint("https://s3.us-west-000.backblazeb2.com") is True
     assert _is_backblaze_endpoint("https://s3.eu-central-003.backblazeb2.com") is True
+    assert _is_backblaze_endpoint("https://backblazeb2.com") is True
+    assert _is_backblaze_endpoint("https://S3.US-WEST-000.BACKBLAZEB2.COM.") is True
     assert _is_backblaze_endpoint("https://s3.amazonaws.com") is False
     assert _is_backblaze_endpoint("https://minio.local:9000") is False
+    assert _is_backblaze_endpoint("https://evil-backblazeb2.com") is False
+    assert _is_backblaze_endpoint("https://evil.example/backblazeb2.com") is False
     assert _is_backblaze_endpoint("") is False
 
 
